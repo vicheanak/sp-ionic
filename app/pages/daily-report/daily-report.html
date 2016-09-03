@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar primary>
+        <ion-title>របាយការណ៍ថ្ងៃនេះ</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="daily-report">
+    <div class="message" *ngIf="!isExist">
+        លោកអ្នកមិនទាន់មានកំណត់ត្រាសម្រាប់ថ្ងៃនេះទេ
+    </div>
+    <ion-row baseline *ngIf="isExist">
+        <ion-col width-40>
+            <ion-label stacked>ទំនិញ </ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>គោលណ៍ដៅរាយ </ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>លក់បាន </ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>នៅសល់ </ion-label>
+        </ion-col>
+    </ion-row>
+    <ion-row baseline *ngFor="let product of products">
+        <ion-col width-40>
+            <ion-label [style.color]="product.star ? 'red':''" stacked>{{product.nameKh}}</ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>{{product.dailyPieceTarget | round | negative }} {{product.unitKh}}</ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>{{product.todaySale | round}} {{product.unitKh}}</ion-label>
+        </ion-col>
+        <ion-col width-20>
+            <ion-label stacked>{{product.dailyPieceTarget - product.todaySale | round | negative}} {{product.unitKh}}</ion-label>
+        </ion-col>
+    </ion-row>
+</ion-content>
