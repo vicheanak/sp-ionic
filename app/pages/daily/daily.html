@@ -10,6 +10,11 @@
         លោកអ្នកមិនទាន់មានកំណត់ត្រាសម្រាប់ថ្ងៃនេះទេ
     </div>
     <ion-list>
+        <ion-item-divider light *ngIf="isExist">
+            <ion-icon name="md-clipboard" item-left></ion-icon>
+            សរុបកំណត់ត្រាក្នុងថ្ងៃនេះ
+            <ion-badge item-right>{{outlets.length}}</ion-badge>
+        </ion-item-divider>
         <button (click)="goToEdit(outlet)" ion-item *ngFor="let outlet of outlets">
             <ion-label>{{outlet.outletNameKh}}</ion-label>
             <ion-note class="en" item-right>{{outlet.orderDate | time}}</ion-note>

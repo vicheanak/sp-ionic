@@ -4,6 +4,7 @@ import {Product} from '../../providers/product/product';
 import {NegativePipe} from '../../pipes/negative';
 import {RoundPipe} from '../../pipes/round';
 import {LoginPage} from '../../pages/login/login';
+import {Outlet} from '../../providers/outlet/outlet';
 /*
   Generated class for the MonthlyPage page.
 
@@ -12,18 +13,24 @@ import {LoginPage} from '../../pages/login/login';
 */
 @Component({
   templateUrl: 'build/pages/monthly/monthly.html',
-  providers: [Product],
+  providers: [Product, Outlet],
   pipes: [NegativePipe, RoundPipe]
 })
 export class MonthlyPage {
 
 	products: any;
     isExist: boolean;
+    thisMonthOutlets: any;
 
-	constructor(private nav: NavController, private productService: Product) {
+	constructor(private nav: NavController, private productService: Product, private outletService: Outlet) {
 
 	}
     ionViewWillEnter(){
+
+        this.outletService.countThisMonthOutlets().then((outlets) => {
+            this.thisMonthOutlets = outlets;
+        });
+
 		this.productService.thisMonthOrders().then((products) => {
             if (products['success'] == false){
                  this.nav.rootNav.push(LoginPage);

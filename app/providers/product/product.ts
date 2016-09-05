@@ -72,7 +72,6 @@ export class Product {
             this.http.get(this.host + '/activeProducts')
                 .map(res => res.json())
                 .subscribe(data => {
-                    console.log('active products', data);
                     this.data = data;
                     resolve(this.data);
                 });

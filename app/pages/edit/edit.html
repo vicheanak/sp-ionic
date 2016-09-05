@@ -27,8 +27,11 @@
                 <ion-label [style.color]="product.star ? 'red':''" stacked>{{product.nameKh}}</ion-label>
             </ion-item>
         </ion-col>
-        <ion-col width-20>
-            <ion-input [(ngModel)]="product.amount" placeholder="0" type="text"></ion-input>
+        <ion-col width-10>
+            <ion-input [(ngModel)]="product.amount" [style.color]="product.invalidAmount ? 'red' : 'black'" placeholder="0" type="tel"></ion-input>
+        </ion-col>
+        <ion-col width-10>
+            <ion-label>{{product.unitKh}}</ion-label>
         </ion-col>
     </ion-row>
     <button block round (click)="submit()">

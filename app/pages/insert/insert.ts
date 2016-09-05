@@ -29,63 +29,62 @@ export class InsertPage {
     selectedOutletNameKh: any;
 
     constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet, private orderService: Order) {
-
         this.selectedOutletNameKh = "ជ្រើសរើសតូប";
-        console.log(this.selectedOutletNameKh);
-
         this.now = moment().format("YYYY-MM-DD HH:mm:ss");
-
         this.outletService.getOutletsByUser().then((outlets) => {
             this.outlets = outlets;
         });
+    }
 
-        // this.outletService.todayOutlets().then((todayOutlets) => {
-        //     this.todayOutlets = todayOutlets;
-        //     this.outletService.getOutletsByUser().then((outlets) => {
-        //         this.outlets = outlets;
-        //         this.outlets = this.outlets.filter((el) => {
-        //             return this.todayOutlets.findIndex((elem) => {
-        //                 return elem.id == el.Outlet.id;
-        //             }) == -1;
-        //         });
-        //     });
-        // });
-
-        this.productService.load().then((products) => {
-            this.products = products;
-        });
-
+    isValid(){
+        var valid = true;
+        for (let i = 0; i < this.products.length; i ++){
+            let product = this.products[i];
+            if (product.amount){
+                if (isNaN(product.amount)){
+                    valid = false;
+                    this.products[i]['invalidAmount'] = true;
+                }
+                else{
+                    this.products[i]['invalidAmount'] = false;
+                }
+            }
+        }
+        return valid;
     }
 
     submit(){
         let orders = [];
-        for (let i = 0; i < this.products.length; i ++){
-            let product = this.products[i];
-            if (product.amount){
-                orders.push({
-                    amount: product.amount,
-                    orderDate: this.now,
-                    OutletId: this.outletId,
-                    ProductId: product.id,
-                });
+        if (this.isValid()){
+            console.trace('trace submit');
+            for (let i = 0; i < this.products.length; i ++){
+                let product = this.products[i];
+                if (product.amount){
+                    orders.push({
+                        amount: product.amount,
+                        orderDate: this.now,
+                        OutletId: this.outletId,
+                        ProductId: product.id,
+                    });
+                }
             }
+            this.orderService.insert(orders).then((data) => {
+                this.nav.parent.select(1);
+                setTimeout(() => {
+                    this.viewCtrl.dismiss();
+                }, 300);
+            });
         }
-
-
-        this.orderService.insert(orders).then((data) => {
-            this.nav.parent.select(1);
-            setTimeout(() => {
-                this.viewCtrl.dismiss();
-            }, 300);
-        });
     }
 
     selectDt(){
-        console.log(this.outletId);
         this.outletService.findOne(this.outletId).then((outlet) => {
             this.outlet = outlet;
             this.selectedOutletNameKh = 'ឈ្មោះតូប៖  '+ this.outlet.outletNameKh;
-            console.log(this.outlet);
+            this.productService.load().then((products) => {
+                this.products = products;
+            });
+
         })
     }
 

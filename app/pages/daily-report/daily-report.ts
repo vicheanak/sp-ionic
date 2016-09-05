@@ -6,29 +6,28 @@ import {RemainingDayPipe} from '../../pipes/remainingday';
 import {TargetDailySalePipe} from '../../pipes/targetDailySale';
 import {RoundPipe} from '../../pipes/round';
 import {LoginPage} from '../../pages/login/login';
+import {Outlet} from '../../providers/outlet/outlet';
 
-/*
-   Generated class for the MonthlyPage page.
-
-   See http://ionicframework.com/docs/v2/components/#navigation for more info on
-   Ionic pages and navigation.
- */
 @Component({
 templateUrl: 'build/pages/daily-report/daily-report.html',
-providers: [Product],
+providers: [Product, Outlet],
 pipes: [NegativePipe, RemainingDayPipe, TargetDailySalePipe, RoundPipe]
 })
 export class DailyReportPage {
     products: any;
     isExist: boolean;
+    todayOutlets: any;
 
-    constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product) {
+    constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet) {
 
     }
 
     ionViewWillEnter(){
+        this.outletService.todayOutlets().then((outlets) => {
+            this.todayOutlets = outlets;
+        });
+
         this.productService.todayOrders().then((products) => {
-            console.log('today products', products);
             if (products['success'] == false){
                  this.nav.rootNav.push(LoginPage);
             }

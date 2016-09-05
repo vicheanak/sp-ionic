@@ -54,7 +54,6 @@ export class Outlet {
                     .map(res => res.json())
                     .subscribe(data => {
                         this.outletsByUser = data;
-                        console.log('outlets by user', data);
                         resolve(data);
                     });
             });
@@ -75,7 +74,25 @@ export class Outlet {
                     .map(res => res.json())
                     .subscribe(data => {
                         this.todayOutletData = data;
-                        console.log('today outlet', data);
+                        resolve(data);
+                    });
+            });
+        });
+    }
+
+    countThisMonthOutlets(){
+        return new Promise(resolve => {
+            this.userData.getUser().then(user => {
+                this.user = user;
+                let headers = new Headers({
+                'Content-Type': 'application/json',
+                'token': this.user.token,
+                'username': this.user.username
+                });
+                let options = new RequestOptions({ headers: headers });
+                this.http.get(this.host + '/countThisMonthOutlets/users/' + this.user.id, options)
+                    .map(res => res.json())
+                    .subscribe(data => {
                         resolve(data);
                     });
             });

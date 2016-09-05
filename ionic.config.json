@@ -2,11 +2,5 @@
   "name": "UniBook",
   "app_id": "",
   "v2": true,
-  "typescript": true,
-  "proxies": [
-    {
-      "path": "/",
-      "proxyUrl": "https://api.unibook.com"
-    }
-  ]
+  "typescript": true
 }

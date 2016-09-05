@@ -33,7 +33,6 @@ export class EditPage {
         this.productService.load().then((products) => {
             this.products = products;
             this.outletService.todayOutletsByOutlet(this.dataParams).then((data) => {
-                console.log('todayOutletsByOutlet', data);
                 this.orders = data;
                 for (let i = 0; i < this.products.length; i ++){
                     for (let j = 0; j < this.orders.length; j ++){
@@ -52,56 +51,77 @@ export class EditPage {
 
     }
 
+    isValid(){
+        var valid = true;
+        for (let i = 0; i < this.products.length; i ++){
+            let product = this.products[i];
+            if (product.amount){
+                if (isNaN(product.amount)){
+                    valid = false;
+                    this.products[i]['invalidAmount'] = true;
+                }
+                else{
+                    this.products[i]['invalidAmount'] = false;
+                }
+            }
+        }
+        return valid;
+    }
+
     submit(){
 
-        let updateOrders = [];
+        if (this.isValid()){
+            let updateOrders = [];
 
-        for (let i = 0; i < this.products.length; i ++){
-            let product = this.products[i];
-            if (product.orderId){
-                updateOrders.push({
-                    id: product.orderId,
-                    amount: product.amount ? product.amount : 0,
-                    OutletId: this.outletId,
-                    ProductId: product.id,
-                    UserId: 1
-                });
+            for (let i = 0; i < this.products.length; i ++){
+                let product = this.products[i];
+                if (product.orderId){
+                    updateOrders.push({
+                        id: product.orderId,
+                        amount: product.amount ? product.amount : 0,
+                        OutletId: this.outletId,
+                        ProductId: product.id,
+                        UserId: 1
+                    });
+                }
             }
-        }
 
-        let insertOrders = [];
+            let insertOrders = [];
 
-        for (let i = 0; i < this.products.length; i ++){
-            let product = this.products[i];
-            if (product.amount && !product.orderId){
-                insertOrders.push({
-                    amount: product.amount,
-                    orderDate: product.orderDate,
-                    OutletId: this.outletId,
-                    ProductId: product.id,
-                    UserId: 1
-                });
+            for (let i = 0; i < this.products.length; i ++){
+                let product = this.products[i];
+                if (product.amount && !product.orderId){
+                    insertOrders.push({
+                        amount: product.amount,
+                        orderDate: product.orderDate,
+                        OutletId: this.outletId,
+                        ProductId: product.id,
+                        UserId: 1
+                    });
+                }
             }
-        }
 
-        this.orderService.update(updateOrders).then((data) => {
-            if (insertOrders.length){
-                this.orderService.insert(insertOrders).then((data) => {
-                    console.log('upsert success');
+            this.orderService.update(updateOrders).then((data) => {
+                if (insertOrders.length){
+                    this.orderService.insert(insertOrders).then((data) => {
+                        console.log('upsert success');
+                        this.nav.parent.select(1);
+                        setTimeout(() => {
+                            this.viewCtrl.dismiss();
+                        }, 300);
+                    })
+                }
+                else{
                     this.nav.parent.select(1);
+                    console.log('update but no insert');
                     setTimeout(() => {
                         this.viewCtrl.dismiss();
                     }, 300);
-                })
-            }
-            else{
-                this.nav.parent.select(1);
-                console.log('update but no insert');
-                setTimeout(() => {
-                    this.viewCtrl.dismiss();
-                }, 300);
-            }
-        });
+                }
+            });
+
+        }
+
 
     }
 
