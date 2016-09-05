@@ -15,7 +15,6 @@ import {LoginPage} from '../../pages/login/login';
 export class SettingPage {
     user: any;
   constructor(private nav: NavController, private userData: UserData) {
-      console.log('hello world');
       this.userData.getUser().then(data => {
           this.user = data;
       });
@@ -24,10 +23,11 @@ export class SettingPage {
   logout(){
       this.userData.logout().then(data => {
           this.nav.rootNav.push(LoginPage);
-          // this.nav.setRoot(LoginPage).then((res) => {
-          //     console.log('res', res);
-          // });
       });
+  }
+
+  exit(){
+      return navigator['app'].exitApp();
   }
 
 }

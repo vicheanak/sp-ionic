@@ -16,20 +16,6 @@ export class Customers {
 
   constructor(private http: Http) {
     this.data = null;
-    this.data = [
-    {_id: 1, name: 'chenda', products: [
-        {_id: 1, name: 'sunsilk', amount: 2},
-        {_id: 2, name: 'viso', amount: 2}
-    ]},
-    {_id: 2, name: 'vireak', products: [
-        {_id: 1, name: 'sunsilk', amount: 2},
-        {_id: 2, name: 'viso', amount: 2}
-    ]},
-    {_id: 3, name: 'nary', products: [
-        {_id: 1, name: 'sunsilk', amount: 2},
-        {_id: 2, name: 'viso', amount: 2}
-    ]}
-    ];
   }
 
   get(name){

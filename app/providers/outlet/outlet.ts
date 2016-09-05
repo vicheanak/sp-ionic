@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Env} from '../env/env';
 import {UserData} from '../user-data/user-data';
@@ -65,7 +65,13 @@ export class Outlet {
         return new Promise(resolve => {
             this.userData.getUser().then(user => {
                 this.user = user;
-                this.http.get(this.host + '/todayOutlets/users/' + this.user.id)
+                let headers = new Headers({
+                'Content-Type': 'application/json',
+                'token': this.user.token,
+                'username': this.user.username
+                });
+                let options = new RequestOptions({ headers: headers });
+                this.http.get(this.host + '/todayOutlets/users/' + this.user.id, options)
                     .map(res => res.json())
                     .subscribe(data => {
                         this.todayOutletData = data;

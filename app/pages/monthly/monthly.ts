@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {Product} from '../../providers/product/product';
 import {NegativePipe} from '../../pipes/negative';
 import {RoundPipe} from '../../pipes/round';
+import {LoginPage} from '../../pages/login/login';
 /*
   Generated class for the MonthlyPage page.
 
@@ -24,10 +25,15 @@ export class MonthlyPage {
 	}
     ionViewWillEnter(){
 		this.productService.thisMonthOrders().then((products) => {
-			this.products = products;
-            this.isExist = true;
-            if (!this.products.length){
-                this.isExist = false;
+            if (products['success'] == false){
+                 this.nav.rootNav.push(LoginPage);
+            }
+            else{
+                this.products = products;
+                this.isExist = true;
+                if (!this.products.length){
+                    this.isExist = false;
+                }
             }
 		});
     }

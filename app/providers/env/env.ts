@@ -12,7 +12,8 @@ export class Env {
   host: String;
 
   constructor() {
-    this.host = 'http://localhost:3000';
+    this.host = 'https://api.unibookkh.com';
+    // this.host = 'http://localhost:3000';
   }
 
   getHost(){

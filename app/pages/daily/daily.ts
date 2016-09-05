@@ -4,6 +4,7 @@ import {InsertPage} from '../insert/insert';
 import {Outlet} from '../../providers/outlet/outlet';
 import {EditPage} from '../edit/edit';
 import {Time} from '../../pipes/time';
+import {LoginPage} from '../../pages/login/login';
 
 /*
    Generated class for the DailyPage page.
@@ -27,10 +28,15 @@ export class DailyPage {
 
     ionViewWillEnter(){
         this.outletService.todayOutlets().then(outlets => {
-            this.outlets = outlets;
-            this.isExist = true;
-            if (!this.outlets.length){
-                this.isExist = false;
+            if (outlets['success'] == false){
+                 this.nav.rootNav.push(LoginPage);
+            }
+            else{
+                this.outlets = outlets;
+                this.isExist = true;
+                if (!this.outlets.length){
+                    this.isExist = false;
+                }
             }
         });
     }

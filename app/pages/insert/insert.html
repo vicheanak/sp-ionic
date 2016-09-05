@@ -36,7 +36,8 @@
             </ion-item>
         </ion-col>
         <ion-col width-20>
-            <ion-input [(ngModel)]="product.amount" placeholder="0" type="text"></ion-input>
+            <ion-input type="tel" [(ngModel)]="product.amount" placeholder="0"></ion-input>
+            <!-- <input type="tel" [(ngModel)]="product.amount"> -->
         </ion-col>
     </ion-row>
     <button block round (click)="submit()">

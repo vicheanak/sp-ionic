@@ -5,6 +5,7 @@ import {NegativePipe} from '../../pipes/negative';
 import {RemainingDayPipe} from '../../pipes/remainingday';
 import {TargetDailySalePipe} from '../../pipes/targetDailySale';
 import {RoundPipe} from '../../pipes/round';
+import {LoginPage} from '../../pages/login/login';
 
 /*
    Generated class for the MonthlyPage page.
@@ -28,10 +29,15 @@ export class DailyReportPage {
     ionViewWillEnter(){
         this.productService.todayOrders().then((products) => {
             console.log('today products', products);
-            this.products = products;
-            this.isExist = true;
-            if (!this.products.length){
-                this.isExist = false;
+            if (products['success'] == false){
+                 this.nav.rootNav.push(LoginPage);
+            }
+            else{
+                this.products = products;
+                this.isExist = true;
+                if (!this.products.length){
+                    this.isExist = false;
+                }
             }
         });
     }

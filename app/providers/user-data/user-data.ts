@@ -49,19 +49,19 @@ export class UserData {
         return new Promise(resolve => {
             console.log('logout');
             this.storage.remove(this.HAS_LOGGED_IN);
-            this.storage.remove('userdata').then( data => {
+            this.storage.remove('unibook-mobile-userdata').then( data => {
                 resolve(data);
             });
         });
     }
 
     setUser(user) {
-        this.storage.set('userdata', JSON.stringify(user));
+        this.storage.set('unibook-mobile-userdata', JSON.stringify(user));
     }
 
     getUser() {
         return new Promise(resolve => {
-            this.storage.get('userdata').then((value) => {
+            this.storage.get('unibook-mobile-userdata').then((value) => {
                 resolve(JSON.parse(value));
             });
         })
