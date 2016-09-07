@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, AlertController } from 'ionic-angular';
 import {WeeklyPage} from '../weekly/weekly';
 import {Product} from '../../providers/product/product';
 import {Outlet} from '../../providers/outlet/outlet';
@@ -28,12 +28,21 @@ export class InsertPage {
     now: any;
     selectedOutletNameKh: any;
 
-    constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet, private orderService: Order) {
+    constructor(private nav: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, private productService: Product, private outletService: Outlet, private orderService: Order) {
         this.selectedOutletNameKh = "ជ្រើសរើសតូប";
         this.now = moment().format("YYYY-MM-DD HH:mm:ss");
         this.outletService.getOutletsByUser().then((outlets) => {
             this.outlets = outlets;
         });
+    }
+
+    doAlert() {
+        let alert = this.alertCtrl.create({
+        title: 'ចំនួនបញ្ចូលមិនត្រឹមត្រូវទេ',
+        message: 'សូមលោកអ្នកធ្វើការត្រួតពិនិត្យម្តងទៀត។',
+        buttons: ['យល់ព្រម']
+        });
+        alert.present()
     }
 
     isValid(){
@@ -56,7 +65,6 @@ export class InsertPage {
     submit(){
         let orders = [];
         if (this.isValid()){
-            console.trace('trace submit');
             for (let i = 0; i < this.products.length; i ++){
                 let product = this.products[i];
                 if (product.amount){
@@ -74,6 +82,9 @@ export class InsertPage {
                     this.viewCtrl.dismiss();
                 }, 300);
             });
+        }
+        else{
+            this.doAlert();
         }
     }
 

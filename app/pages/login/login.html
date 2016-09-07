@@ -6,7 +6,7 @@
         <form #loginForm="ngForm" novalidate loginForm>
             <ion-item>
                 <ion-label floating primary>ឈ្មោះ</ion-label>
-                <ion-input [(ngModel)]="login.username" class="en" ngControl="username" type="text" #username="ngForm" spellcheck="false" autocapitalize="off" required>
+                <ion-input [(ngModel)]="login.username" class="en" ngModel name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" required>
                 </ion-input>
             </ion-item>
             <p [hidden]="username.valid || submitted == false" danger padding-left>
@@ -15,7 +15,7 @@
 
             <ion-item>
                 <ion-label floating primary>ពាក្យសំងាត់</ion-label>
-                <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" required>
+                <ion-input [(ngModel)]="login.password" ngModel name="password" type="password" #password="ngModel" required>
                 </ion-input>
             </ion-item>
             <p [hidden]="password.valid || submitted == false" danger padding-left>

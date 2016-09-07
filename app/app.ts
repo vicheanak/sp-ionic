@@ -8,11 +8,12 @@ import {UserData} from './providers/user-data/user-data';
 import {DailyReportPage} from './pages/daily-report/daily-report';
 import {MonthlyPage} from './pages/monthly/monthly';
 import {SettingPage} from './pages/setting/setting';
+import {RootNav} from './providers/root-nav/root-nav'
 
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
-  providers: [Env, UserData]
+  providers: [Env, UserData, RootNav]
 })
 export class MyApp {
 
@@ -37,6 +38,7 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [Env, UserData], {
-    tabSubPages: false
+ionicBootstrap(MyApp, [Env, UserData, RootNav], {
+    tabSubPages: false,
+    tabsHighlight: true
 });

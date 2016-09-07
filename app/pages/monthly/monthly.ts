@@ -5,6 +5,7 @@ import {NegativePipe} from '../../pipes/negative';
 import {RoundPipe} from '../../pipes/round';
 import {LoginPage} from '../../pages/login/login';
 import {Outlet} from '../../providers/outlet/outlet';
+import {RootNav} from '../../providers/root-nav/root-nav';
 /*
   Generated class for the MonthlyPage page.
 
@@ -22,7 +23,7 @@ export class MonthlyPage {
     isExist: boolean;
     thisMonthOutlets: any;
 
-	constructor(private nav: NavController, private productService: Product, private outletService: Outlet) {
+	constructor(private nav: NavController, private productService: Product, private outletService: Outlet, private rootNav: RootNav) {
 
 	}
     ionViewWillEnter(){
@@ -33,7 +34,8 @@ export class MonthlyPage {
 
 		this.productService.thisMonthOrders().then((products) => {
             if (products['success'] == false){
-                 this.nav.rootNav.push(LoginPage);
+                 let rootNav = this.rootNav.getRootNav(this.nav);
+                 rootNav.setRoot(LoginPage);
             }
             else{
                 this.products = products;

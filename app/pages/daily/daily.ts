@@ -5,6 +5,7 @@ import {Outlet} from '../../providers/outlet/outlet';
 import {EditPage} from '../edit/edit';
 import {Time} from '../../pipes/time';
 import {LoginPage} from '../../pages/login/login';
+import {RootNav} from '../../providers/root-nav/root-nav';
 
 /*
    Generated class for the DailyPage page.
@@ -21,7 +22,7 @@ export class DailyPage {
     outlets: any;
     isExist: boolean;
 
-    constructor(private nav: NavController, private outletService: Outlet) {
+    constructor(private nav: NavController, private outletService: Outlet, private rootNav: RootNav) {
     }
     ngAfterViewInit(){
     }
@@ -29,7 +30,8 @@ export class DailyPage {
     ionViewWillEnter(){
         this.outletService.todayOutlets().then(outlets => {
             if (outlets['success'] == false){
-                 this.nav.rootNav.push(LoginPage);
+                 let rootNav = this.rootNav.getRootNav(this.nav);
+                 rootNav.setRoot(LoginPage);
             }
             else{
                 this.outlets = outlets;

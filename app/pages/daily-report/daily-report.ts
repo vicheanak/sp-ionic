@@ -7,6 +7,15 @@ import {TargetDailySalePipe} from '../../pipes/targetDailySale';
 import {RoundPipe} from '../../pipes/round';
 import {LoginPage} from '../../pages/login/login';
 import {Outlet} from '../../providers/outlet/outlet';
+import {RootNav} from '../../providers/root-nav/root-nav';
+
+// export function getRootNav(nav: NavController) : NavController {
+//     let root = nav;
+//     while(root.parent != null){
+//         root = root.parent;
+//     }
+//     return root;
+// }
 
 @Component({
 templateUrl: 'build/pages/daily-report/daily-report.html',
@@ -18,7 +27,7 @@ export class DailyReportPage {
     isExist: boolean;
     todayOutlets: any;
 
-    constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet) {
+    constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet, private rootNav: RootNav) {
 
     }
 
@@ -29,7 +38,9 @@ export class DailyReportPage {
 
         this.productService.todayOrders().then((products) => {
             if (products['success'] == false){
-                 this.nav.rootNav.push(LoginPage);
+                 // this.nav.rootNav.push(LoginPage);
+                 let rootNav = this.rootNav.getRootNav(this.nav);
+                 rootNav.setRoot(LoginPage);
             }
             else{
                 this.products = products;
