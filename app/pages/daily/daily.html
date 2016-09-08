@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar primary>
-      <ion-title>កំណត់ត្រាក្នុងថ្ងៃនេះ</ion-title>
+      <ion-title>កំណត់ត្រាថ្ងៃនេះ</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
     <ion-list>
         <ion-item-divider light *ngIf="isExist">
             <ion-icon name="md-clipboard" item-left></ion-icon>
-            សរុបកំណត់ត្រាក្នុងថ្ងៃនេះ
+            សរុបកំណត់ត្រាថ្ងៃនេះ
             <ion-badge item-right>{{outlets.length}}</ion-badge>
         </ion-item-divider>
         <button (click)="goToEdit(outlet)" ion-item *ngFor="let outlet of outlets">
