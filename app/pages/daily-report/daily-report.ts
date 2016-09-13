@@ -9,14 +9,6 @@ import {LoginPage} from '../../pages/login/login';
 import {Outlet} from '../../providers/outlet/outlet';
 import {RootNav} from '../../providers/root-nav/root-nav';
 
-// export function getRootNav(nav: NavController) : NavController {
-//     let root = nav;
-//     while(root.parent != null){
-//         root = root.parent;
-//     }
-//     return root;
-// }
-
 @Component({
 templateUrl: 'build/pages/daily-report/daily-report.html',
 providers: [Product, Outlet],
@@ -24,8 +16,9 @@ pipes: [NegativePipe, RemainingDayPipe, TargetDailySalePipe, RoundPipe]
 })
 export class DailyReportPage {
     products: any;
-    isExist: boolean;
     todayOutlets: any;
+    productAmounts: any;
+    productEmptyAmounts: any;
 
     constructor(private nav: NavController, public viewCtrl: ViewController, private productService: Product, private outletService: Outlet, private rootNav: RootNav) {
 
@@ -44,11 +37,8 @@ export class DailyReportPage {
             }
             else{
                 this.products = products;
-                this.isExist = true;
-                if (!this.products.length){
-                    this.isExist = false;
-                }
             }
+
         });
     }
 

@@ -6,12 +6,8 @@ import {RoundPipe} from '../../pipes/round';
 import {LoginPage} from '../../pages/login/login';
 import {Outlet} from '../../providers/outlet/outlet';
 import {RootNav} from '../../providers/root-nav/root-nav';
-/*
-  Generated class for the MonthlyPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+
 @Component({
   templateUrl: 'build/pages/monthly/monthly.html',
   providers: [Product, Outlet],
@@ -20,8 +16,8 @@ import {RootNav} from '../../providers/root-nav/root-nav';
 export class MonthlyPage {
 
 	products: any;
-    isExist: boolean;
     thisMonthOutlets: any;
+    productAmounts: any;
 
 	constructor(private nav: NavController, private productService: Product, private outletService: Outlet, private rootNav: RootNav) {
 
@@ -39,11 +35,8 @@ export class MonthlyPage {
             }
             else{
                 this.products = products;
-                this.isExist = true;
-                if (!this.products.length){
-                    this.isExist = false;
-                }
             }
+
 		});
     }
 

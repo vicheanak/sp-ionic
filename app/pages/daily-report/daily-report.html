@@ -5,20 +5,17 @@
 </ion-header>
 
 <ion-content padding class="daily-report">
-    <div class="message" *ngIf="!isExist">
-        លោកអ្នកមិនទាន់មានកំណត់ត្រាសម្រាប់ថ្ងៃនេះទេ
-    </div>
-    <ion-item-divider light *ngIf="isExist">
+    <ion-item-divider light>
         <ion-icon name="md-clipboard" item-left></ion-icon>
         សរុបកំណត់ត្រាថ្ងៃនេះ
-        <ion-badge item-right>{{todayOutlets.length}}</ion-badge>
+        <ion-badge item-right>{{todayOutlets ? todayOutlets.length : '0'}}</ion-badge>
     </ion-item-divider>
-    <ion-row baseline *ngIf="isExist">
+    <ion-row baseline>
         <ion-col width-40>
             <ion-label stacked><strong>ឈ្មោះទំនិញ</strong></ion-label>
         </ion-col>
         <ion-col width-20>
-            <ion-label stacked><strong>គោលណ៍ដៅរាយ </strong></ion-label>
+            <ion-label stacked><strong>គោលដៅណ៍ប្រចាំថ្ងៃ </strong></ion-label>
         </ion-col>
         <ion-col width-20>
             <ion-label stacked><strong>លក់បាន </strong></ion-label>
