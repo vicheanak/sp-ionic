@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import {Product} from '../../providers/product/product';
 import {Outlet} from '../../providers/outlet/outlet';
 import {Order} from '../../providers/order/order';
@@ -23,7 +23,7 @@ export class EditPage {
     orders: any;
     orderDate: any;
     dataParams: any;
-    constructor(private nav: NavController, private navParams: NavParams, private viewCtrl: ViewController, private productService: Product, private outletService: Outlet, private orderService: Order) {
+    constructor(private nav: NavController, private navParams: NavParams, private viewCtrl: ViewController, public alertCtrl: AlertController, private productService: Product, private outletService: Outlet, private orderService: Order) {
 
         this.outletNameKh = navParams.get('outletNameKh');
         this.outletId = navParams.get('id');
@@ -51,12 +51,21 @@ export class EditPage {
 
     }
 
+    doAlert() {
+        let alert = this.alertCtrl.create({
+        title: 'ចំនួនបញ្ចូលមិនត្រឹមត្រូវទេ',
+        message: 'សូមលោកអ្នកធ្វើការត្រួតពិនិត្យម្តងទៀត។',
+        buttons: ['យល់ព្រម']
+        });
+        alert.present()
+    }
+
     isValid(){
         var valid = true;
         for (let i = 0; i < this.products.length; i ++){
             let product = this.products[i];
             if (product.amount){
-                if (isNaN(product.amount)){
+                if (isNaN(product.amount) || (product.amount % 1 != 0)) {
                     valid = false;
                     this.products[i]['invalidAmount'] = true;
                 }
@@ -120,6 +129,9 @@ export class EditPage {
                 }
             });
 
+        }
+        else{
+            this.doAlert();
         }
 
 

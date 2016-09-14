@@ -50,7 +50,7 @@ export class InsertPage {
         for (let i = 0; i < this.products.length; i ++){
             let product = this.products[i];
             if (product.amount){
-                if (isNaN(product.amount)){
+                if (isNaN(product.amount) || (product.amount % 1 != 0)) {
                     valid = false;
                     this.products[i]['invalidAmount'] = true;
                 }
