@@ -14,20 +14,29 @@
 
 
 <ion-content padding class="insert">
-    <ion-list>
+    <!-- <ion-list>
         <ion-item class="ion-select">
             <ion-label>{{selectedOutletNameKh}}</ion-label>
             <ion-select [(ngModel)]="outletId" cancelText="ចាកចេញ" okText="យល់ព្រម" (ionChange)="selectDt($event)">
                 <ion-option *ngFor="let o of outlets" [value]="o.OutletId" [dtId]="o.Outlet.DistributorId">{{o.Outlet.outletNameKh}}</ion-option>
             </ion-select>
         </ion-item>
-    </ion-list>
+    </ion-list> -->
 
-    <ion-list no-lines *ngIf="outlet">
+
+    <ion-list *ngIf="outlet" no-lines>
         <ion-item>
-            <ion-label>ឈ្មោះដេប៉ូ៖ {{outlet.Distributor.dtNameKh}}</ion-label>
+            <ion-row>
+                <ion-col width-50>
+                    ឈ្មោះដេប៉ូ៖ {{outlet.outletNameKh}}
+                </ion-col>
+                <ion-col width-50>
+                    ឈ្មោះដេប៉ូ៖ {{outlet.Distributor.dtNameKh}}
+                </ion-col>
+            </ion-row>
         </ion-item>
     </ion-list>
+
 
     <ion-row baseline *ngFor="let product of products">
         <ion-col width-80>

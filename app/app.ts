@@ -9,7 +9,14 @@ import {DailyReportPage} from './pages/daily-report/daily-report';
 import {MonthlyPage} from './pages/monthly/monthly';
 import {SettingPage} from './pages/setting/setting';
 import {RootNav} from './providers/root-nav/root-nav'
+import {provideCloud, CloudSettings} from '@ionic/cloud-angular';
+import {Deploy} from '@ionic/cloud-angular';
 
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '7c39aa66'
+  }
+};
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
@@ -38,7 +45,13 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [Env, UserData, RootNav], {
+ionicBootstrap(MyApp, [
+        Env, 
+        UserData,
+        RootNav,
+        Deploy,
+        provideCloud(cloudSettings)
+], {
     tabSubPages: false,
     tabsHighlight: true
 });

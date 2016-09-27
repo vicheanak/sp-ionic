@@ -31,8 +31,15 @@ export class InsertPage {
     constructor(private nav: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, private productService: Product, private outletService: Outlet, private orderService: Order) {
         this.selectedOutletNameKh = "ជ្រើសរើសតូប";
         this.now = moment().format("YYYY-MM-DD HH:mm:ss");
+
+        this.productService.load().then((products) => {
+            this.products = products;
+        });
         this.outletService.getOutletsByUser().then((outlets) => {
-            this.outlets = outlets;
+            this.outletId = outlets[0]['id'];
+            this.outletService.findOne(this.outletId).then((outlet) => {
+                this.outlet = outlet;
+            });
         });
     }
 
@@ -88,16 +95,6 @@ export class InsertPage {
         }
     }
 
-    selectDt(){
-        this.outletService.findOne(this.outletId).then((outlet) => {
-            this.outlet = outlet;
-            this.selectedOutletNameKh = 'ឈ្មោះតូប៖  '+ this.outlet.outletNameKh;
-            this.productService.load().then((products) => {
-                this.products = products;
-            });
-
-        })
-    }
 
 
 }

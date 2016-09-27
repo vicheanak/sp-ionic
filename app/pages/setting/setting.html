@@ -10,7 +10,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="setting">
     <ion-card>
         <ion-card-header *ngIf="user">
             ឈ្មោះ <span class="en">{{user.username}}</span>
@@ -20,4 +20,6 @@
         </ion-card-content>
     </ion-card>
     <br>
+    <button full warn round (click)="updateApp()">តម្លើងកម្មវិធី</button>
+    <span class="version">ស៊េរី {{version}}</span>
 </ion-content>

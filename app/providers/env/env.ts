@@ -20,6 +20,10 @@ export class Env {
     return this.host;
   }
 
+  getVersion(){
+    return '1.15';
+  }
+
 }
 
 
