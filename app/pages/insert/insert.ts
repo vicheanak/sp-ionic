@@ -36,7 +36,7 @@ export class InsertPage {
             this.products = products;
         });
         this.outletService.getOutletsByUser().then((outlets) => {
-            this.outletId = outlets[0]['id'];
+            this.outletId = outlets[0]['OutletId'];
             this.outletService.findOne(this.outletId).then((outlet) => {
                 this.outlet = outlet;
             });

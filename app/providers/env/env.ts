@@ -21,7 +21,7 @@ export class Env {
   }
 
   getVersion(){
-    return '1.20';
+    return '1.23';
   }
 
 }
