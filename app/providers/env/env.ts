@@ -13,15 +13,16 @@ export class Env {
 
   constructor() {
     this.host = 'https://api.unibookkh.com';
-    // this.host = 'http://localhost:3001';
+    // this.host = 'http://localhost:3000';
   }
 
   getHost(){
+      console.log('get this host');
     return this.host;
   }
 
   getVersion(){
-    return '1.23';
+    return '1.3';
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-content login>
 
     <ion-list>
-        <h1 class="header en" primary>UniBook</h1>
+        <h1 class="header en" primary>SP UniBook</h1>
 
         <form #loginForm="ngForm" novalidate loginForm>
             <ion-item>
@@ -33,5 +33,8 @@
         </form>
     </ion-list>
 
+  <button (click)="updateApp()" class="fab-button" fab danger fab-bottom fab-fixed fab-right>
+      <ion-icon name="md-construct"></ion-icon>
+  </button>
 </ion-content>
 
